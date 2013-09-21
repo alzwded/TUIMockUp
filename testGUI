@@ -1,8 +1,44 @@
-Label 0.5
-Hello
+Label 1
+Tokens:
 
-Label 0.5
-world!
+LN
+ListBox 1
+convert
+f in.bmp
+-scale
+0.5x0.5
+.
+.
+
+LN
+TextBox 0.8
+~/test out.bmp
+
+Button
+Add
+
+Button
+Browse
+
+LN
+TextBox 0.6
+/tmp/do_stuff.csh
+
+Combo 0.4
+csh
+
+Button
+Save
+
+LN
+Label 0.3
+CmdLine:
+
+TextBox 0.7
+convert "f in.bmp" -scale 0.5x0.5
+
+Button
+Copy
 
 
 

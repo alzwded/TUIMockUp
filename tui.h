@@ -192,7 +192,7 @@ public:
         else s << "|_";
 
         if(m_lines[i-1].size() > width) {
-            s << m_lines[i-1].substr(0, drv.width);
+            s << m_lines[i-1].substr(0, width);
         } else {
             s << m_lines[i-1];
             if(i == height(drv) - 1) {
