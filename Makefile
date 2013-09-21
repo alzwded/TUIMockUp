@@ -1,11 +1,10 @@
 CC = g++
 ENTRYPOINT = exe_main
 COPTS = -g -Wall -c -std=gnu++11 -DENTRYPOINT=$(ENTRYPOINT)
-OBJS = main.o tui.o
+OBJS = main.o tui.o parser.o
 LD = g++
 LDOPTS = 
 EXE = tuimu
-HEADERS = tui.h
 
 $(EXE): $(OBJS)
 	$(LD) -o $(EXE) $(LDOPTS) $(OBJS)

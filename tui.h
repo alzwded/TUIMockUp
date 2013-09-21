@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <memory>
+#include <cstring>
 
 class ComponentDriver;
 class AComponent
@@ -314,5 +315,18 @@ public:
 };
 
 typedef Tui tui_t;
+
+struct ComponentFactory
+{
+    static AComponent* New(char const* const s)
+    {
+        if(strcmp(s, "Label") == 0) return new Label();
+        if(strcmp(s, "Button") == 0) return new Button();
+        if(strcmp(s, "TextBox") == 0) return new TextBox();
+        if(strcmp(s, "ListBox") == 0) return new ListBox();
+        if(strcmp(s, "Combo") == 0) return new Combo();
+        return NULL;
+    }
+};
 
 #endif

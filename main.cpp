@@ -7,12 +7,6 @@
 # define ENTRYPOINT exe_main
 #endif
 
-int parser(FILE* f, tui_t & tui)
-{
-    fprintf(stderr, "PARSER NOT IMPLEMENTED\n");
-    abort();
-}
-
 int test(tui_t& tui)
 {
     std::shared_ptr<AComponent> sp;
