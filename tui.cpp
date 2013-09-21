@@ -1,5 +1,6 @@
 #include "tui.h"
 #include <assert.h>
+#include <climits>
 
 void Tui::add(std::shared_ptr<AComponent> const& c)
 {
@@ -65,6 +66,7 @@ int Tui::build()
         std::vector<int> widths(m_ctrls[i].size(), 0);
         float max_weight = 0.0f;
         int remaining = max_width - 3;
+        bool haveVariableWidthComponents(false);
         for(size_t j = 0; j < m_ctrls[i].size(); ++j) {
             remaining--;
             int w = m_ctrls[i][j]->width(drv);
@@ -73,15 +75,29 @@ int Tui::build()
                 remaining -= w;
             } else {
                 max_weight += m_ctrls[i][j]->my_weight();
+                haveVariableWidthComponents = true;
             }
         }
         int splitremaining = remaining;
+        struct {
+            size_t idx;
+            int val;
+        } min = { -1, INT_MAX };
+        if(haveVariableWidthComponents)
         for(size_t j = 0; j < m_ctrls[i].size(); ++j) {
             int w = m_ctrls[i][j]->width(drv);
             if(w <= 0) {
                 widths[j] = splitremaining * m_ctrls[i][j]->my_weight() / max_weight;
+                if(widths[j] < min.val) {
+                    min.idx = j;
+                    min.val = widths[j];
+                }
                 remaining -= widths[j];
             }
+        }
+        if(haveVariableWidthComponents && remaining) {
+            widths[min.idx] += remaining;
+            remaining = 0;
         }
         for(int h = 0; h < drv.height; ++h) {
             drv.line = h;

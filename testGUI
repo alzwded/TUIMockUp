@@ -21,20 +21,20 @@ Button
 Browse
 
 LN
-TextBox 0.6
+TextBox 0.8
 /tmp/do_stuff.csh
 
-Combo 0.4
+Combo 0.2
 csh
 
 Button
 Save
 
 LN
-Label 0.3
+Label 0.15
 CmdLine:
 
-TextBox 0.7
+TextBox 0.85
 convert "f in.bmp" -scale 0.5x0.5
 
 Button
