@@ -84,6 +84,7 @@ TODO
 * ~~stdin parser~~
 * handle negative-length string exceptions && assuring a minimum window width in case there's not enough horizontal room for components
 * table input control
+* possibility for blank lines in list/text boxes (or in general, rather)
 
 STDIN Parser
 ============
