@@ -4,6 +4,10 @@
 
 void Tui::add(std::shared_ptr<AComponent> const& c)
 {
+    if(std::dynamic_pointer_cast<Menu>(c)) {
+        m_menus.push_back(c);
+        return;
+    }
     m_built.assign("");
     assert(m_current < m_ctrls.size());
     m_ctrls[m_current].push_back(c);
@@ -43,8 +47,21 @@ int Tui::build()
 
     // title bar
     s << ' ' << std::string(max_width - 2, '_') << ' ' << std::endl;
-    s << "|X| " << m_name << std::string(max_width - 4 - m_name.size() - 4, ' ') << " |+|" << std::endl;
-    s << '|' << std::string(max_width - 2, '-') << '|' << std::endl;
+    s << "|X|_" << m_name << std::string(max_width - 4 - m_name.size() - 4, '_') << "_|+|" << std::endl;
+    //s << '|' << std::string(max_width - 2, '-') << '|' << std::endl;
+    s << "|";
+    int menuWidth = max_width - 1 - 2;
+    ComponentDriver scratch01;
+    for(std::vector<std::shared_ptr<AComponent> >::iterator i = m_menus.begin();
+            i != m_menus.end(); ++i)
+    {
+        if(menuWidth < (*i)->width(scratch01)) break;
+        s << '-';
+        menuWidth -= 1 + (*i)->width(scratch01);
+        s << (*i)->str(scratch01);
+    }
+    s << std::string(menuWidth, '-');
+    s << "-|" << std::endl;
 
     for(size_t i = 0; i < m_ctrls.size(); ++i) {
         int max_height = 0;

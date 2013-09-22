@@ -254,6 +254,29 @@ public:
     }
 };
 
+class Menu : public AComponent
+{
+    std::string m_text;
+public:
+    virtual AComponent* text(std::string const& text)
+    {
+        m_text.assign(text);
+        return this;
+    }
+    virtual std::string str(ComponentDriver const&) const
+    {
+        return m_text;
+    }
+    virtual int width(ComponentDriver const&) const
+    {
+        return m_text.length();
+    }
+    virtual int height(ComponentDriver const&) const
+    {
+        return 1;
+    }
+};
+
 /*
 class VGroup : public AComponent
 {
@@ -304,8 +327,9 @@ class Tui
     std::string m_built;
     int m_width;
     std::string m_name;
+    std::vector<std::shared_ptr<AComponent> > m_menus;
 public:
-    Tui() : m_current(-1), m_width(70), m_name("Window") {}
+    Tui() : m_current(-1), m_width(70), m_name("Window"), m_ctrls(), m_menus() {}
     void add(std::shared_ptr<AComponent> const&);
     void ln();
     int build();
@@ -325,6 +349,7 @@ struct ComponentFactory
         if(strcmp(s, "TextBox") == 0) return new TextBox();
         if(strcmp(s, "ListBox") == 0) return new ListBox();
         if(strcmp(s, "Combo") == 0) return new Combo();
+        if(strcmp(s, "Menu") == 0) return new Menu();
         return NULL;
     }
 };

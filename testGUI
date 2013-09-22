@@ -1,3 +1,4 @@
+LN
 Label 1
 Tokens:
 
@@ -40,5 +41,13 @@ convert "f in.bmp" -scale 0.5x0.5
 Button
 Copy
 
+Menu
+File
+
+Menu
+Edit
+
+Menu
+Help
 
 
