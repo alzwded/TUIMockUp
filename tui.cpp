@@ -49,19 +49,23 @@ int Tui::build()
     s << ' ' << std::string(max_width - 2, '_') << ' ' << std::endl;
     s << "|X|_" << m_name << std::string(max_width - 4 - m_name.size() - 4, '_') << "_|+|" << std::endl;
     //s << '|' << std::string(max_width - 2, '-') << '|' << std::endl;
-    s << "|";
-    int menuWidth = max_width - 1 - 2;
-    ComponentDriver scratch01;
-    for(std::vector<std::shared_ptr<AComponent> >::iterator i = m_menus.begin();
-            i != m_menus.end(); ++i)
-    {
-        if(menuWidth < (*i)->width(scratch01)) break;
-        s << '-';
-        menuWidth -= 1 + (*i)->width(scratch01);
-        s << (*i)->str(scratch01);
-    }
-    s << std::string(menuWidth, '-');
-    s << "-|" << std::endl;
+    if(m_menus.size()) {
+        s << "|";
+        int menuWidth = max_width - 1 - 2;
+        ComponentDriver scratch01;
+        for(std::vector<std::shared_ptr<AComponent> >::iterator i = m_menus.begin();
+                i != m_menus.end(); ++i)
+        {
+            if(menuWidth < (*i)->width(scratch01)) break;
+            s << '-';
+            menuWidth -= 1 + (*i)->width(scratch01);
+            s << (*i)->str(scratch01);
+        }
+        s << std::string(menuWidth, '-');
+        s << "-|" << std::endl;
+    }/* else {
+        s << '|' << std::string(max_width - 2, ' ') << '|' << std::endl;
+    }*/
 
     for(size_t i = 0; i < m_ctrls.size(); ++i) {
         int max_height = 0;
